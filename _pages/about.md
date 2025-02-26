@@ -15,7 +15,7 @@ social: true # includes social icons at the bottom of the page
 
 ---
 
-I am a senior at the University of Chicago double majoring in Mathematics and Computer Science. My recent work at the Environmental Science Division at Argonne National Laboratory focuses on developing data pipelines and models to support the national AI flood mapping project. You can find some of my work [here](https://github.com/davdma).
+I am a senior at the [University of Chicago](https://uchicago.edu/) double majoring in Mathematics and Computer Science. My recent work at the Environmental Science Division at [Argonne National Laboratory](https://www.anl.gov/) focuses on developing data pipelines and models to support the national AI flood mapping project. You can find some of my work [here](https://github.com/davdma).
 
 My projects include:
 * **Current:** Flood mapping using multispectral and synthetic aperture radar (SAR)
