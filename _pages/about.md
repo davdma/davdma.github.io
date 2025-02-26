@@ -13,10 +13,6 @@ profile:
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
-latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
 ---
 
 I am a senior at the University of Chicago double majoring in Mathematics and Computer Science. My recent work at the Environmental Science Division at Argonne National Laboratory focuses on developing data pipelines and models to support the national AI flood mapping project. You can find some of my work [here](https://github.com/davdma).
