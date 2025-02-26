@@ -20,4 +20,9 @@ latest_posts:
 
 I am a senior at the University of Chicago double majoring in Mathematics and Computer Science. My recent work at the Environmental Science Division at Argonne National Laboratory focuses on developing data pipelines and models to support the national AI flood mapping project. You can find some of my work [here](https://github.com/davdma).
 
+My projects include:
+* **Current:** Flood mapping using multispectral and synthetic aperture radar (SAR)
+* Measuring kinase inhibitor polypharmacology
+* PFAS bioaccumulation cheminformatic modeling
+
 My Github and LinkedIn are also linked down below.
