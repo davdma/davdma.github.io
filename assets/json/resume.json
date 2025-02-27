@@ -5,7 +5,7 @@
     "email": "davidma.inspire@outlook.com",
     "phone": "(425) 240-2620",
     "url": "https://davdma.github.io/",
-    "summary": "An undergraduate student interested in the intersection of science and computation.",
+    "summary": "An undergraduate student interested in the intersection of science and computation."
   },
   "work": [
     {
@@ -15,7 +15,7 @@
       "url": "https://www.anl.gov",
       "startDate": "2023-06-01",
       "endDate": "Present",
-      "summary": "Part-time research aide working on the national AI flood mapping project. Developed python and shell scripts for dataset collection and devised a successful manual labeling workflow. Currently investigating different computer vision model architectures on the HPC clusters for predicting flood pixels from both multispectral and synthetic radar aperture (SAR) data.",
+      "summary": "Part-time research aide working on the national AI flood mapping project. Developed python and shell scripts for dataset collection and devised a successful manual labeling workflow. Currently investigating different computer vision model architectures on the HPC clusters for predicting flood pixels from both multispectral and synthetic radar aperture (SAR) data."
     },
     {
       "name": "Fred Hutchinson Cancer Center",
@@ -24,7 +24,7 @@
       "url": "https://www.fredhutch.org",
       "startDate": "2024-06-01",
       "endDate": "2024-08-01",
-      "summary": "Cleaned and analyzed kinase inhibitor dataset, including measuring the polypharmacology of different FDA approved kinase inhibitors. Experimented with cheminformatic ML models (Chemprop, ProSmith) on HPC for predicting kinase inhibition profiles using chemical structure.",
+      "summary": "Cleaned and analyzed kinase inhibitor dataset, including measuring the polypharmacology of different FDA approved kinase inhibitors. Experimented with cheminformatic ML models (Chemprop, ProSmith) on HPC for predicting kinase inhibition profiles using chemical structure."
     },
     {
       "name": "Argonne National Laboratory",
@@ -33,7 +33,7 @@
       "url": "https://www.anl.gov",
       "startDate": "2023-06-01",
       "endDate": "2023-09-12",
-      "summary": "Conducted independent project modeling PFAS bioaccumulation over the course of 12 weeks. Explored different data sampling methodologies and transfer learning to predict bioaccumulation behavior in a small class of PFAS compounds.",
+      "summary": "Conducted independent project modeling PFAS bioaccumulation over the course of 12 weeks. Explored different data sampling methodologies and transfer learning to predict bioaccumulation behavior in a small class of PFAS compounds."
     }
   ],
   "volunteer": [
