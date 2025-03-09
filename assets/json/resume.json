@@ -51,13 +51,13 @@
     {
       "institution": "University of Chicago, Chicago, IL",
       "location": "Chicago, IL",
-      "url": "https://www.uzh.ch/",
+      "url": "https://www.uchicago.edu/",
       "area": "Software & ML",
       "studyType": "BS Mathematics, BA Computer Science",
       "startDate": "2021-09-01",
       "endDate": "2025-06-01",
-      "score": "10",
-      "courses": ["Operating Systems", "Intro to Optimization", "Math for ML", "Scientific Visualization", "Markov Chains & Brownian Motion", "Linear Algebra", "Theory of Algorithms"]
+      "score": "3.95",
+      "courses": ["Operating Systems", "Intro to Optimization", "Systems Programming", "Math for ML", "Scientific Visualization", "Markov Chains & Brownian Motion", "Linear Algebra", "Theory of Algorithms"]
     }
   ],
   "awards": [
