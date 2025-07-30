@@ -32,7 +32,7 @@ My scivis and datavis CS professor Gordon Kindlmann (one of my favorite professo
 {% include figure.liquid loading="eager" path="assets/img/beckyquote.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
 
 <div class="caption">
-    A screenshot of the slide in question from Professon Kindlmann's lecture (DataVis25).
+    A screenshot of the slide in question from Professor Kindlmann's lecture (DataVis25).
 </div>
 
 I went to a talk titled "God, the Grind, and the Good Life" by my social psychology professor, Professor Oishi (another one of my favorite professors). An important principle that he applies in his own life when work gets difficult is that he replaces "have to" with "get to" in his mind. Instead of "I have to finish this paper" he thinks "I get to finish this paper" because not everyone gets that opportunity to work on interesting research projects and publish their results. He also emphasizes stepping away from the hedonic treadmill by maximizing success while managing expectation and ambition. As success grows, often ambition grows as well, and if we use the analogy of self esteem as success divided by ambition, if you don't curb your ambitions, you will never be satisfied. At the end of the day, subjectivity matters the most when it comes to reconciling work with the good life.
