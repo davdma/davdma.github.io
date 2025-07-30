@@ -259,7 +259,7 @@ jekyll-archives:
     tag: "/blog/tag/:name/"
     category: "/blog/category/:name/"
 
-display_tags: ["reflection", "developer", "learning", "math", "machine-learning", "code"] # these tags will be displayed on the front page of your blog
+display_tags: ["reflection", "developer", "learning", "math", "ML", "code"] # these tags will be displayed on the front page of your blog
 display_categories: ["tech", "philosophy"] # these categories will be displayed on the front page of your blog
 
 # -----------------------------------------------------------------------------
