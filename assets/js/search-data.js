@@ -27,7 +27,7 @@ ninja.data = [{
       
         title: "Quote Wall",
       
-      description: "some things I heard that resonated",
+      description: "Some things I heard that resonated",
       section: "Posts",
       handler: () => {
         
