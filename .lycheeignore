@@ -1,2 +1,9 @@
 linkedin.com
 reddit.com
+https://uchicago.edu/*
+https://www.anl.gov/*
+https://www.pinterest.com/*
+
+# Ignore deleted files
+file://*/davdma.github.io/_news
+file://*/davdma.github.io/_includes/news.liquid
