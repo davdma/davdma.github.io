@@ -57,7 +57,17 @@
       "startDate": "2021-09-01",
       "endDate": "2025-06-01",
       "score": "3.95",
-      "courses": ["Operating Systems", "Intro to Optimization", "Intro to Neural Networks", "Systems Programming", "Math for ML", "Scientific Visualization", "Markov Chains & Brownian Motion", "Linear Algebra", "Theory of Algorithms"]
+      "courses": [
+        "Operating Systems",
+        "Intro to Optimization",
+        "Intro to Neural Networks",
+        "Systems Programming",
+        "Math for ML",
+        "Scientific Visualization",
+        "Markov Chains & Brownian Motion",
+        "Linear Algebra",
+        "Theory of Algorithms"
+      ]
     }
   ],
   "awards": [
