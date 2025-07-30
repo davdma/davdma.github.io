@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-quote-wall",
+        },{id: "post-learning-git",
+      
+        title: "Learning Git",
+      
+      description: "Getting over my fear of git",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Learning-Git/";
+        
+      },
+    },{id: "post-quote-wall",
       
         title: "Quote Wall",
       
