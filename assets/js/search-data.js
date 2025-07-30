@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-embracing-ai-tools",
+        },{id: "post-quote-wall",
+      
+        title: "Quote Wall",
+      
+      description: "some things I heard that resonated",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Quote-Wall/";
+        
+      },
+    },{id: "post-embracing-ai-tools",
       
         title: "Embracing AI Tools",
       
