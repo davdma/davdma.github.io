@@ -5,6 +5,7 @@ date: 2025-07-29 22:40:00
 description: Some things I heard that resonated
 tags: reflection
 categories: philosophy
+featured: true
 ---
 
 # Things I Heard

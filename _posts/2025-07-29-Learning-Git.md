@@ -3,7 +3,7 @@ layout: distill
 title: Learning Git
 description: Getting over my fear of git
 tags: code learning
-giscus_comments: true
+giscus_comments: false
 date: 2025-07-30
 featured: true
 mermaid:
@@ -95,34 +95,119 @@ Some things that helped me better wrap my head around what was going on in `Git`
   - **Staging area (Index)** is the temporary area where you prepare changes to be included in the next commit. It is the bridge between the working tree and the repository's history. Each time you run `git add` it sends a snapshot of your working tree to put in the index. The purpose of the index is that it allows you to selectively stage changes for including in the next commit without doing it all at once.
   - The **working directory (Working Tree)** is the directory on your file system where the project files live. The working tree contains your tracked and untracked files and any modifications you make. The changes you make in your working directory or tree are not tracked until explicitly added to the index.
 - The mental model I use is `working tree -> index -> git history`. The first two is bridged with `git add`, and the second two is bridged with `git commit`.
-- When you are working on a remote repository, it is important to know that there is a **local representation** of the remote repository that lives on your computer (if your local branch is `main` then it is typically referenced by `origin/main`). Each time you `git pull` it actually runs two separate commands, `git fetch` and `git merge` behind the scenes. `git fetch` (kind of like a download) synchronizes your local remote representation with the source remote representation. To get the updates in your local files the `git merge` is then done between the new local remote branch and your local branch.
+- Remotes are versions of your repository hosted online. In many cases, you will need to handle remotes, such as adding or removing remotes. To see what remotes you have, run `git remote -v` (the flag displays the remote url next to the remote name). You can push and pull from any of these remotes!
+  - To add remotes use `git remote add <name> <url>`. You can give it any name you want as long as it's short and easy to remember.
+  - You can later specify the remote when pushing with `git push <remote> <branch>` e.g. `git push origin master`.
+- When you are working on a remote repository, it is important to know that there is a **local representation** of the remote repository that lives on your computer (if your local branch is `main` then it is typically referenced by `origin/main`). Each time you `git pull` it actually runs two separate commands, `git fetch` and `git merge` behind the scenes. `git fetch` (kind of like a download) synchronizes your local remote representation with the online hosted remote representation. To get the updates in your local files the `git merge` is then done between the new local remote branch and your local branch.
 
 ---
 
 ## Undoing Things
 
-This is one of the things that stumped me for a while. How do I undo a particular commit? How do I revert a specific file rather than my entire tracked working tree?
+This is one of the things that stumped me for a while. How do I undo a `git add`? What about a particular commit? How do I revert a specific file back to a previous state rather than my entire repo?
 
-While trying to revert just a single file to a previous state, I learned some intricacies about `git reset` as opposed to `git restore`. They sound similar, but are actually doing different things. I learned that `git reset` moves the `HEAD` while `git restore` does not, it only modifies your working directory. This is why `git restore` is a safer operation.
+If you want to unstage a file you have staged with `git add`, run:
+
+```shell
+git reset HEAD <file>
+```
+
+OR
+
+```shell
+git restore --staged <file>
+```
+
+If you want to discard changes to a tracked file, you can revert to a previous commit of the file with:
+
+```shell
+git checkout -- <file>
+```
+
+OR
+
+```shell
+git restore <file>
+```
+
+(Note: HEAD is not moved when you just revert a single file like this.)
+
+For resetting the entire repo state (i.e. including your index and tracked files) to a previous commit use:
+
+```shell
+git reset <mode> <commit>`.
+```
+
+Definitely be careful with using commands that discard unwanted changes, as they may not be recovered. For instance, when using `git reset <commit>` you need to be aware that there are three distinct settings, `--soft`, `--mixed` (default), and `--hard`. The soft setting does **not change your index or working tree**, but simply moves the HEAD to a previous commit, so you will still have everything you staged ready to be committed. The mixed setting **resets the index** but not the working tree, so you still have all your changes, just not added for commit. The hard setting resets **both the index and working tree**, so that it permanently discards all of the changes you've made in your filesystem and reverts everything to that specific commit -- this is the most dangerous, so use with caution.
+
+You might wonder why there is both a `git reset` and `git restore`. `git restore` is an alternative and is preferable for newer versions of `git`. But there are some intricacies to them which I learned while trying to revert just a single file to a previous state. They sound similar, but are actually doing different things. I learned that `git reset` moves the `HEAD` while `git restore` does not, it only modifies your working directory. This is why `git restore` is a safer operation.
+
+A useful command when it comes to probing around at file states is `git diff`. It shows you the difference between files at particular states. By itself without any flags it helps you look at changes between your **working tree** and the **index** staging area. If you wanted to look at changes between your **index** and a prior commit use `git diff --staged <commit>` (or `--cached` which is a synonym of `--staged`). For changes between **working tree** and a particular commit, use `git diff --merge-base <commit>`. Again, here you see why it is good to know the difference between the working tree and the index.
+
+If you just want to see the changes introduced at a commit before you undo it, run:
+
+```shell
+git show <commit-sha>
+```
 
 ---
 
 ## Branching
 
-Branching is the most powerful feature in `Git`, and I wish I learned about why sooner. During my software development class, I was working alongside multiple teams of students developing new features for the codebase. When you have many people all working on different versions of the code, things can get hairy quick. This is why it is essential to work with branching.
+Branching is the most powerful feature in `Git`, and I wish I learned about why sooner. During my software development class, I was working alongside multiple teams of students developing new features for the codebase. When you have many individuals all working on different versions of the code on your `main` branch, things can get hairy quick. This is why it is essential to work with different branches. Branching allows you to work on the codebase separately without affecting the main code if something breaks. In this workflow, typically the `main` branch (which you might be accustomed to working with) is protected, and developers cannot directly make commits to `main`. What you must do is branch off of `main`, work on that branch and make commits to it separately, and then incorporate your code later when it is ready through a **pull request (PR)**. The PR must be reviewed by other developers before it is finally merged into the `main` branch.
+
+The process of branching and merging is essential to the concept of **Continuous Integration (CI)** which is part of the software development process. CI prevents integration hell by frequently merging each developer's work into the mainline branch.
+
+To create a new branch from your current commit, run:
+
+```shell
+git branch <name>
+```
+
+OR
+
+```shell
+git checkout -b <name>
+```
+
+You can switch branches using the command:
+
+```shell
+git checkout <name>
+```
+
+If you just created a branch, you will need to set the upstream remote in order to do a `git push`. To set it, run:
+
+```shell
+git push -u <remote> <branch>
+```
+
+Note: `-u` is short for `--set-upstream`.
+
+Merging branches takes all the changes from one branch and adds it to another using a merge commit. If you are on the `david` branch and you call `git merge main`, you merge the changes from the `main` branch over to your `david` branch. If on the other hand, you wanted to merge `david` onto `main` you would need to checkout `main` and `git merge david` from there. Often times you will want to add the newest changes from `main` to the side branch you are working on - to do this, you have to checkout `main` and call `git pull` to get the recent updates to `main`, then checkout the `david` side branch again to merge the updates from `main` in.
 
 ---
 
 ## The Powerful Git Rebase
 
-During a talk by a software developer at Slack, he recommended that students learn to use the interactive git rebase `git rebase -i`. Apparently nobody knows how to use it, but it's a superpower. This piqued my interest, so I started learning more about rebasing.
+During a talk by a software developer at Slack, he recommended that students learn to use the interactive git rebase `git rebase -i`. Apparently nobody knows how to use it, but it's a superpower. This piqued my interest, so I started learning more about rebasing. So... what is rebasing?
+
+A rebase is another way to combine work between branches in addition to the merge. While a merge joins two branches together in an entangled fashion, a rebase creates a linearized commit history, by taking a set of commits and copying them over on top of the branch you want. In real life codebases, merging work from many developers can get gross really fast. Rebasing makes things much cleaner and easier.
+
+Usually you would run `git rebase <upstream> <branch>`. But if you run `git rebase <arg>` it will automatically assume that the argument name is the upstream branch and you want the current branch you have checked out to be rebased onto it. For example calling `git rebase main` from `david` would move the work from the `david` branch on top of the `main` branch.
+
+{% include figure.liquid loading="eager" path="assets/img/gitblog.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+
+<div class="caption">
+    Notice that once bugFix has already been rebased onto main, rebasing main onto bugFix simply forwards the HEAD. At step 3,the main branch has all the changes from bugFix integrated with cleaner commit history than a merge.
+</div>
 
 ---
 
 ## Flags I Like
 
 - Typically for large repos with lots of files that I don't want to store on Github, I end up with many untracked files. This can clutter the `git status` output. Using the flag `git status -uno` however skips displaying untracked files, making it easier to read.
-- Sometimes you want to just add and commit everything you modified. Save yourself some time with `git commit -a` flag.
+- Sometimes you want to just add and commit everything you modified. Save yourself some time with `git commit -a` flag. You don't even need to `git add`!
 - For cleaner commit history when incorporating remote changes, fetch and rebase instead of the default fetch and merge with `git pull --rebase` option.
 - For reading the commit logs, show diffs with `git log -p`. Abbreviated stats (lines modified etc.) can be shown with `--stat` and the ASCII graph with `--graph`. Can also limit to specific files with `git log -- path/to/file`.
 - For reading diffs with more context, use the `-U` flag, add the number of lines you want around the diffs with an integer after the flag, for example, `git diff -U8` for 8 lines of context instead of the default 3.
@@ -136,3 +221,8 @@ Here are some useful resources I consulted (and I still often go back to) on my 
 - [The UChicago Student Resource Guide](https://uchicago-cs.github.io/student-resource-guide/tutorials/git-local.html)
 - [Interactive Git Tutorial](https://learngitbranching.js.org/)
 - [Pro Git book](https://git-scm.com/book/en/v2)
+- [Learn Git Rebase](https://www.youtube.com/watch?v=f1wnYdLEpgI&ab_channel=TheModernCoder)
+
+```
+
+```
