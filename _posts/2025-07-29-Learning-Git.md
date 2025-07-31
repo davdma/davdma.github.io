@@ -199,7 +199,7 @@ Usually you would run `git rebase <upstream> <branch>`. But if you run `git reba
 {% include figure.liquid loading="eager" path="assets/img/gitblog.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
 
 <div class="caption">
-    Notice that once bugFix has already been rebased onto main, rebasing main onto bugFix simply forwards the HEAD. At step 3,the main branch has all the changes from bugFix integrated with cleaner commit history than a merge.
+    Notice that once bugFix has already been rebased onto main, rebasing main onto bugFix simply forwards the HEAD. At step 3, the main branch has all the changes from bugFix integrated with cleaner commit history than a merge.
 </div>
 
 ---
@@ -222,7 +222,3 @@ Here are some useful resources I consulted (and I still often go back to) on my 
 - [Interactive Git Tutorial](https://learngitbranching.js.org/)
 - [Pro Git book](https://git-scm.com/book/en/v2)
 - [Learn Git Rebase](https://www.youtube.com/watch?v=f1wnYdLEpgI&ab_channel=TheModernCoder)
-
-```
-
-```
