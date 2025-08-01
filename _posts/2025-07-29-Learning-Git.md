@@ -31,6 +31,7 @@ toc:
   - name: Undoing Things
   - name: Branching
   - name: The Powerful Git Rebase
+  - name: Useful Commands
   - name: Flags I Like
   - name: Resources
   # if a section has subsections, you can add them as follows:
@@ -201,6 +202,49 @@ Usually you would run `git rebase <upstream> <branch>`. But if you run `git reba
 <div class="caption">
     Notice that once bugFix has already been rebased onto main, rebasing main onto bugFix simply forwards the HEAD. At step 3, the main branch has all the changes from bugFix integrated with cleaner commit history than a merge.
 </div>
+
+If you want to move work around by copying a series of commits below your current location or HEAD and you know the exact commits you want, you can run:
+
+```shell
+git cherry-pick <commit1> <commit2> <commit3>
+```
+
+But if you are not sure what commits you want or their hashes, interactive rebase comes in (and is more powerful). Interactive rebase can let you reorder commits, drop or keep commits, squash commits and even edit commits.
+You can always undo the rebase by looking into the ref log with `git reflog` and doing a `git reset`.
+
+--
+
+## Useful Commands
+
+If you are jumping around commits and have uncommitted changes in your files you might lose, you will want to use `git stash`.
+Suppose you want to go back 3 commits to `HEAD~3`. If you don't want to commit your current changes you will have to stash them first:
+
+1. ```shell
+   git stash
+   ```
+
+2. ```shell
+   git checkout HEAD~3 # now you can switch
+   ```
+
+3. ```shell
+   git checkout feature # come back to your work
+   ```
+
+4. ```shell
+   git stash pop # restores the changes you stashed
+   ```
+
+Once you call `git stash` those changes will disappear and be stashed away. When `git stash pop` is called they will be put back in your working directory.
+
+You can inspect your reference history with `git reflog`. The reference logs or `reflog` record useful information about where the `HEAD` was several moves ago, as well as the movement of branch references in the local repository.
+It also stores recent actions. The `reflog` syntax `@{}` is important to know in addition to the `^` and `~` symbols: `HEAD@{n}` refers to the position of HEAD in the reflog `n` moves ago. Check with the reflog command what `HEAD@{n}` points to.
+
+Move the HEAD to a previous reference point with all changes staged:
+
+```shell
+git reset --soft "HEAD@{2}"
+```
 
 ---
 
