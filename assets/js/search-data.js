@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-learning-git",
+        },{id: "post-the-tmux-tool",
+      
+        title: "The Tmux Tool",
+      
+      description: "Teaching myself to use the terminal multiplexer",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Learning-Tmux/";
+        
+      },
+    },{id: "post-learning-git",
       
         title: "Learning Git",
       
