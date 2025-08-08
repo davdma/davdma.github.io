@@ -57,7 +57,7 @@ It's useful to have the model of `session -> window -> pane`.
 
 You can have multiple windows in each session (think of windows as tabs in a browser). You can add new windows with **Ctrl+B** followed by **C**. Jump to the specified window number with **Ctrl+B** followed by **2** for window 2 or use **Ctrl+B** followed by **N** or **P** to go forward or back. To kill the window use **Ctrl+B** then **&**.
 
-Within each of these windows you can also split the session window into horizontal or vertical panes using **Ctrl+B** followed by **%** for horizontal and **"** for vertical. **Ctrl+B** with arrow keys then moves between the panes. Usersoften recommend enabling mouse support for `tmux` by modifying the config file so you can resize panes more easily.
+Within each of these windows you can also split the session window into horizontal or vertical panes using **Ctrl+B** followed by **%** for horizontal and **"** for vertical. **Ctrl+B** with arrow keys then moves between the panes. Users often recommend enabling mouse support for `tmux` by modifying the config file so you can resize panes more easily.
 
 One of the shortcuts to be careful of is **Ctrl+D** which exits (terminates) that `tmux` session you are in. It's easy to accidentally hit that key stroke while trying to detach.
 
