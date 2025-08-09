@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-the-tmux-tool",
+        },{id: "post-symbolic-links",
+      
+        title: "Symbolic Links",
+      
+      description: "Understanding sym vs. hard links, how to use them",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Symlinks/";
+        
+      },
+    },{id: "post-the-tmux-tool",
       
         title: "The Tmux Tool",
       
