@@ -187,6 +187,8 @@ Note: `-u` is short for `--set-upstream`.
 
 Merging branches takes all the changes from one branch and adds it to another using a merge commit. If you are on the `david` branch and you call `git merge main`, you merge the changes from the `main` branch over to your `david` branch. If on the other hand, you wanted to merge `david` onto `main` you would need to checkout `main` and `git merge david` from there. Often times you will want to add the newest changes from `main` to the side branch you are working on - to do this, you have to checkout `main` and call `git pull` to get the recent updates to `main`, then checkout the `david` side branch again to merge the updates from `main` in.
 
+Often times you will encounter merge conflicts. This can be daunting at first, but it is actually straightforward once you learn how to resolve merge conflicts in the editor. At locations of merge conflicts there will be conflict markers `<<<<<<<`, `=======`, `>>>>>>>`. While most editors give the option to choose between the current or incoming change, **you are free to modify the lines as you wish** (e.g. if you want to choose the incoming change but make modifications or create a combination of the current and incoming change). A common misconception is that you have to choose one or the other, when you can rewrite it however you like. Once resolved and all conflict markers are removed, save the file and stage it, then continue with `git merge --continue`.
+
 ---
 
 ## The Powerful Git Rebase
@@ -203,14 +205,23 @@ Usually you would run `git rebase <upstream> <branch>`. But if you run `git reba
     Notice that once bugFix has already been rebased onto main, rebasing main onto bugFix simply forwards the HEAD. At step 3, the main branch has all the changes from bugFix integrated with cleaner commit history than a merge.
 </div>
 
-If you want to move work around by copying a series of commits below your current location or HEAD and you know the exact commits you want, you can run:
+If you want to move work around by copying a series of commits below your current location or HEAD and you know the exact commits you want, instead of rebase you can run:
 
 ```shell
 git cherry-pick <commit1> <commit2> <commit3>
 ```
 
-But if you are not sure what commits you want or their hashes, interactive rebase comes in (and is more powerful). Interactive rebase can let you reorder commits, drop or keep commits, squash commits and even edit commits.
-You can always undo the rebase by looking into the ref log with `git reflog` and doing a `git reset`.
+But if you are not sure what commits you want or their hashes, interactive rebase comes in (and is more powerful). Interactive rebase can let you reorder commits, drop or keep commits, squash commits and even edit commits. When you run `git rebase -i`, you will first be dropped into your default editor (in my case vim) with the following lines:
+
+```text
+pick 1a2b3c Commit message A
+pick 4d5e6f Commit message B
+pick 7g8h9i Commit message C
+```
+
+You can then choose what you want to do with each commit by modifying the prefix before the hash. For instance, the prefix `pick` means you want to keep the commit. You can also use `drop` to omit the commit, `edit` to pause and make changes, or `reword` to keep commit but modify its commit message. Once you've made the appropriate changes for the rebase instructions, save and exit, and rebase will run. Most likely you will encounter merge conflicts in the process, in which case the rebase will pause at that point. You will have to resolve these conflicts manually, add those resolutions to your index with `git add`, and then continue on by running `git rebase --continue`. If things get messy, you can always reset and try again with `git rebase --abort`.
+
+If you have completed the rebase but want to go back, you can always undo the rebase by looking into the ref log with `git reflog` and doing a `git reset`.
 
 --
 
@@ -255,6 +266,7 @@ git reset --soft "HEAD@{2}"
 - For cleaner commit history when incorporating remote changes, fetch and rebase instead of the default fetch and merge with `git pull --rebase` option.
 - For reading the commit logs, show diffs with `git log -p`. Abbreviated stats (lines modified etc.) can be shown with `--stat` and the ASCII graph with `--graph`. Can also limit to specific files with `git log -- path/to/file`.
 - For reading diffs with more context, use the `-U` flag, add the number of lines you want around the diffs with an integer after the flag, for example, `git diff -U8` for 8 lines of context instead of the default 3.
+- For seeing what git files you currently have tracked you can use `git ls-files .`.
 
 ---
 

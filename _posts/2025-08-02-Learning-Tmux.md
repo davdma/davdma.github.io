@@ -81,6 +81,21 @@ I would also recommend using the `tmux` plugin manager [here](https://github.com
 My `.tmux.conf` file looks like this:
 
 ```
+# improve colors
+set -g default-terminal 'screen-256color'
+
+# prefix as Ctrl+space easier than Ctrl+b
+unbind C-b
+set-option -g prefix C-Space
+bind-key C-Space send-prefix
+
+# start window numbers at 1 to match keyboard order with tmux window order
+set -g base-index 1
+set-window-option -g pane-base-index 1
+
+# renumber windows sequentially after closing any of them
+set -g renumber-windows on
+
 # split panes using | and -
 bind | split-window -h
 bind - split-window -v
@@ -93,6 +108,9 @@ bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
+# increase scrollback lines
+set -g history-limit 10000
+
 # enable mouse
 set -g mouse on
 
@@ -104,6 +122,12 @@ set -g @plugin 'wfxr/tmux-power'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
+```
+
+To reload the current `tmux` config, run:
+
+```shell
+tmux source-file ~/.tmux.conf
 ```
 
 Note: setting up extrakto requires `fzf` (this involves downloading with brew, adding a line to `.bashrc`).
