@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-symbolic-links",
+        },{id: "post-the-dining-philosophers",
+      
+        title: "The Dining Philosophers",
+      
+      description: "Understanding Djikstra&#39;s solution to the dining philosophers problem.",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Dining-Philosophers/";
+        
+      },
+    },{id: "post-symbolic-links",
       
         title: "Symbolic Links",
       
