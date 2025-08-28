@@ -133,19 +133,19 @@ To calculate variance in a single pass, for each new data point say $$ x_k $$, y
 \begin{algorithm}
 \caption{Welford's Single Pass Algorithm}
 \begin{algorithmic}
-\Procedure{WelfordSinglePass}{$$\text{data}$$}
-    \State $$n \leftarrow 0$$
-    \State $$\text{mean} \leftarrow 0$$
-    \State $$\text{sum\_of\_squares} \leftarrow 0$$
-    \For{each $$x$$ in $$\text{data}$$}
-        \State $$n \leftarrow n + 1$$
-        \State $$\text{prev\_mean} \leftarrow \text{mean}$$
-        \State $$\text{mean} \leftarrow \text{mean} + \frac{x - \text{mean}}{n}$$
-        \State $$\text{sum\_of\_squares} \leftarrow \text{sum\_of\_squares} + (x - \text{mean}) \times (x - \text{prev\_mean})$$
-    \EndFor
-    \State $$\text{variance} \leftarrow \frac{\text{sum\_of\_squares}}{n - 1}$$
-    \State \Return $$\text{mean}, \text{variance}$$
-\EndProcedure
+\PROCEDURE{WelfordSinglePass}{$$\text{data}$$}
+    \STATE $$n \leftarrow 0$$
+    \STATE $$\text{mean} \leftarrow 0$$
+    \STATE $$\text{sum\_of\_squares} \leftarrow 0$$
+    \FOR{each $$x$$ in $$\text{data}$$}
+        \STATE $$n \leftarrow n + 1$$
+        \STATE $$\text{prev\_mean} \leftarrow \text{mean}$$
+        \STATE $$\text{mean} \leftarrow \text{mean} + \frac{x - \text{mean}}{n}$$
+        \STATE $$\text{sum\_of\_squares} \leftarrow \text{sum\_of\_squares} + (x - \text{mean}) \times (x - \text{prev\_mean})$$
+    \ENDFOR
+    \STATE $$\text{variance} \leftarrow \frac{\text{sum\_of\_squares}}{n - 1}$$
+    \STATE \RETURN $$\text{mean}, \text{variance}$$
+\ENDPROCEDURE
 \end{algorithmic}
 \end{algorithm}
 ```
