@@ -128,7 +128,7 @@ $$
 
 To calculate variance in a single pass, for each new data point say $$ x_k $$, you just need to iteratively update the mean $$ \bar{x}_k = \bar{x}_{k-1} + \frac{x_k - \bar{x}_{k-1}}{k} $$ and keep track of the difference of $$ x_k $$ to the current and previous mean. The product $$ (x_k - \bar{x}_k)(x_k - \bar{x}_{k-1}) $$ can then be added to a growing sum of squared differences term. At the end, simply divide the sum of squared differences by number of data points seen and you get the variance. From the iterative updates you will also have the full mean at the end.
 
-{% include figure.liquid loading="eager" path="assets/img/welford.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+{% include figure.liquid loading="eager" path="assets/img/welford.png" class="img-fluid rounded z-depth-1" zoomable=true style="width: 40%;" %}
 
 <div class="caption">
     Welford's algorithm for computing variance in a single pass.
