@@ -127,10 +127,9 @@ $$
 \end{align}
 $$
 
-To calculate variance in a single pass, for each data point `x_i` you just need to keep track of the difference of `x_i` to the current and previous mean, and add their product to a growing sum of squared differences term.
+To calculate variance in a single pass, for each new data point say `x_k`, you just need to iteratively update the mean $$ \bar{x}_k = \bar{x}_{k-1} + \frac{x_k - \bar{x}_{k-1}}{k} $$ and keep track of the difference of `x_k` to the current and previous mean. The product $$ (x_k - \bar{x}_k)(x_k - \bar{x}_{k-1}) $$ can then be added to a growing sum of squared differences term. At the end, simply divide the sum of squared differences by number of data points seen and you get the variance. From the iterative updates you will also have the full mean at the end.
 
 ```pseudocode
-$$
 \begin{algorithm}
 \caption{Welford's Single Pass Algorithm}
 \begin{algorithmic}
@@ -149,8 +148,6 @@ $$
 \ENDPROCEDURE
 \end{algorithmic}
 \end{algorithm}
-$$
-
 ```
 
 # Parallelized Welford
