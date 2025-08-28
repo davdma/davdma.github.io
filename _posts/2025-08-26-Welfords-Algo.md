@@ -140,4 +140,79 @@ To calculate variance in a single pass, for each new data point say $$ x_k $$, y
 
 # Parallelized Welford
 
-If a parallel processor is available, it is [recommended](https://engineering.yale.edu/application/files/3817/3714/7395/tr222.pdf) to split the data into smaller samples and then compute the sum of squares for each sample individually. Then the global sum of squares can be computed by combining these smaller sums.
+If a parallel processor is available, it is [recommended](https://engineering.yale.edu/application/files/3817/3714/7395/tr222.pdf) to split the data into smaller samples and then compute the sum of squares for each sample individually. Then the global sum of squares can be computed by combining these smaller sums in a merging step.
+
+Say you split the dataset into arbitrary groups $$ A, B$$ with $$n_A, n_B$$ samples. Using Welford's on both sets you have the means and sum of squared differences $$ \bar{x}_A, \bar{x}_B, M_{2,A}, M_{2,B}$$, where $$M_2 = \sum (x_i - \bar{x})^2$$. Then,
+
+$$
+\begin{align}
+n_{AB} &= n_A + n_B \\
+\bar{x}_{AB} &= \frac{n_A \bar{x}_A + n_B \bar{x}_B}{n_{AB}} \\
+\delta &= \bar{x}_B - \bar{x}_A \\
+M_{2,AB} &= M_{2,A}+M_{2,B}+\delta^2 \cdot \frac{n_A n_B}{n_{AB}}
+\end{align}
+$$
+
+The reason for the extra term when summing up the squared differences is to adjust for the difference between the means of the two groups. We can derive the merge formula, starting with the definition $$ M_{2,AB} = \sum (x_i - \bar{x}_{AB})^2$$:
+
+We can split this into two sums,
+
+$$
+M_{2, AB} = \sum_{i \in A} (x_i - \bar{x}_{AB})^2 + \sum_{i \in B} (x_i - \bar{x}_{AB})^2
+$$
+
+For set $$A$$, we can substitute $$ (x_i - \bar{x}_{AB}) = (x_i - \bar{x}_A) + (\bar{x}_A - \bar{x}_{AB})$$. Squaring it we have,
+
+$$
+(x_i - \bar{x}_{AB})^2 = (x_i - \bar{x}_A)^2 + 2(x_i - \bar{x}_A)(\bar{x}_A - \bar{x}_{AB}) + (\bar{x}_A - \bar{x}_{AB})^2 \\
+$$
+
+Summing this over all points in $$A$$, we get,
+
+$$
+\begin{align}
+\sum_{i \in A} (x_i - \bar{x}_{AB})^2 &= \sum_{i \in A} (x_i - \bar{x}_A)^2 + 2(\bar{x}_A - \bar{x}_{AB}) \sum_{i \in A} (x_i - \bar{x}_A) + n_A (\bar{x}_A - \bar{x}_{AB})^2 \\
+&= M_{2, A} + 2(\bar{x}_A - \bar{x}_{AB}) \cdot 0 + n_A (\bar{x}_A - \bar{x}_{AB})^2 \\
+&= M_{2, A} + n_A (\bar{x}_A - \bar{x}_{AB})^2
+\end{align}
+$$
+
+The same result applies to set $$B$$. Thus we have,
+
+$$
+\begin{align}
+M_{2, AB} &= M_{2, A} + n_A (\bar{x}_A - \bar{x}_{AB})^2 + M_{2, B} + n_B (\bar{x}_B - \bar{x}_{AB})^2 \\
+&= M_{2, A} + M_{2, B} + n_A (\bar{x}_A - \bar{x}_{AB})^2 + n_B (\bar{x}_B - \bar{x}_{AB})^2
+\end{align}
+$$
+
+We can simplify the right two terms. We know that $$ \bar{x}_{AB} = \frac{n_A \bar{x}_A + n_B \bar{x}_B}{n_A + n_B}$$, which allows us to rewrite:
+
+$$
+\begin{align}
+(\bar{x}_A - \bar{x}_{AB}) &= (\bar{x}_A - \frac{n_A \bar{x}_A + n_B \bar{x}_B}{n_A + n_B}) = \frac{n_B}{n_A + n_B} (\bar{x}_A - \bar{x}_B)
+&= \frac{n_B}{n_{AB}} (\bar{x}_A - \bar{x}_B)
+\end{align}
+$$
+
+Similarly,
+
+$$
+(\bar{x}_B - \bar{x}_{AB}) = \frac{n_A}{n_{AB}} (\bar{x}_B - \bar{x}_A)
+$$
+
+Now we have,
+
+$$
+\begin{align}
+n_A (\bar{x}_A - \bar{x}_{AB})^2 + n_B (\bar{x}_B - \bar{x}_{AB})^2 &= n_A (\frac{n_B}{n_{AB}})^2 (\bar{x}_A - \bar{x}_B)^2 + n_B (\frac{n_A}{n_{AB}})^2 (\bar{x}_B - \bar{x}_A)^2 \\
+&= (\frac{n_A n_B^2}{n_{AB}^2} + \frac{n_B n_A^2}{n_{AB}^2}) (\bar{x}_A - \bar{x}_B)^2 \\
+&= (\frac{n_A n_B^2 + n_B n_A^2}{n_{AB}^2}) (\bar{x}_A - \bar{x}_B)^2 \\
+&= (\frac{n_A n_B (n_B + n_A)}{n_{AB}^2}) (\bar{x}_A - \bar{x}_B)^2 \\
+&= (\frac{n_A n_B (n_{AB})}{n_{AB}^2}) (\bar{x}_A - \bar{x}_B)^2 \\
+&= (\frac{n_A n_B}{n_{AB}}) (\bar{x}_A - \bar{x}_B)^2 \\
+&= \delta^2 \frac{n_A n_B}{n_{AB}} \\
+\end{align}
+$$
+
+Which is the between groups term in equation 21 that we must account for.
