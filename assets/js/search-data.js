@@ -23,7 +23,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "post-the-dining-philosophers",
+        },{id: "post-welford-39-s-online-algorithm",
+      
+        title: "Welford&#39;s Online Algorithm",
+      
+      description: "Learning the math behind single-pass mean std calculation",
+      section: "Posts",
+      handler: () => {
+        
+          window.location.href = "/blog/2025/Welfords-Algo/";
+        
+      },
+    },{id: "post-the-dining-philosophers",
       
         title: "The Dining Philosophers",
       
