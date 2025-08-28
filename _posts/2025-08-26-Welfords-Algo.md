@@ -127,25 +127,25 @@ $$
 \end{align}
 $$
 
-To calculate variance in a single pass, for each new data point say `x_k`, you just need to iteratively update the mean $$ \bar{x}_k = \bar{x}_{k-1} + \frac{x_k - \bar{x}_{k-1}}{k} $$ and keep track of the difference of `x_k` to the current and previous mean. The product $$ (x_k - \bar{x}_k)(x_k - \bar{x}_{k-1}) $$ can then be added to a growing sum of squared differences term. At the end, simply divide the sum of squared differences by number of data points seen and you get the variance. From the iterative updates you will also have the full mean at the end.
+To calculate variance in a single pass, for each new data point say $$ x_k $$, you just need to iteratively update the mean $$ \bar{x}_k = \bar{x}_{k-1} + \frac{x_k - \bar{x}_{k-1}}{k} $$ and keep track of the difference of $$ x_k $$ to the current and previous mean. The product $$ (x_k - \bar{x}_k)(x_k - \bar{x}_{k-1}) $$ can then be added to a growing sum of squared differences term. At the end, simply divide the sum of squared differences by number of data points seen and you get the variance. From the iterative updates you will also have the full mean at the end.
 
 ```pseudocode
 \begin{algorithm}
 \caption{Welford's Single Pass Algorithm}
 \begin{algorithmic}
-\PROCEDURE{WelfordSinglePass}{$$\text{data}$$}
-    \STATE $$n \leftarrow 0$$
-    \STATE $$\text{mean} \leftarrow 0$$
-    \STATE $$\text{sum\_of\_squares} \leftarrow 0$$
-    \FOR{each $$x$$ in $$\text{data}$$}
-        \STATE $$n \leftarrow n + 1$$
-        \STATE $$\text{prev\_mean} \leftarrow \text{mean}$$
-        \STATE $$\text{mean} \leftarrow \text{mean} + \frac{x - \text{mean}}{n}$$
-        \STATE $$\text{sum\_of\_squares} \leftarrow \text{sum\_of\_squares} + (x - \text{mean}) \times (x - \text{prev\_mean})$$
-    \ENDFOR
-    \STATE $$\text{variance} \leftarrow \frac{\text{sum\_of\_squares}}{n - 1}$$ \COMMENT{sample variance}
-    \RETURN $$\text{mean}, \text{variance}$$
-\ENDPROCEDURE
+\Procedure{WelfordSinglePass}{$$\text{data}$$}
+    \State $$n \leftarrow 0$$
+    \State $$\text{mean} \leftarrow 0$$
+    \State $$\text{sum\_of\_squares} \leftarrow 0$$
+    \For{each $$x$$ in $$\text{data}$$}
+        \State $$n \leftarrow n + 1$$
+        \State $$\text{prev\_mean} \leftarrow \text{mean}$$
+        \State $$\text{mean} \leftarrow \text{mean} + \frac{x - \text{mean}}{n}$$
+        \State $$\text{sum\_of\_squares} \leftarrow \text{sum\_of\_squares} + (x - \text{mean}) \times (x - \text{prev\_mean})$$
+    \EndFor
+    \State $$\text{variance} \leftarrow \frac{\text{sum\_of\_squares}}{n - 1}$$
+    \State \Return $$\text{mean}, \text{variance}$$
+\EndProcedure
 \end{algorithmic}
 \end{algorithm}
 ```
