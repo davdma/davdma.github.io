@@ -261,12 +261,22 @@ git reset --soft "HEAD@{2}"
 
 ## Flags I Like
 
+Options I use a lot:
+
 - Typically for large repos with lots of files that I don't want to store on Github, I end up with many untracked files. This can clutter the `git status` output. Using the flag `git status -uno` however skips displaying untracked files, making it easier to read.
 - Sometimes you want to just add and commit everything you modified. Save yourself some time with `git commit -a` flag. You don't even need to `git add`!
+- **Interactive git adding!** Often times I find myself only wanting to add a subset of the modified files for an upcoming commit, so I can have a more partitioned and organized commit history. It can be quite tedious to `git add path/to/file` a dozen times. Just use `git add -i` option! The interface is a little less intuitive than the interactive rebase, but it's easy to follow [here](https://git-scm.com/book/en/v2/Git-Tools-Interactive-Staging).
 - For cleaner commit history when incorporating remote changes, fetch and rebase instead of the default fetch and merge with `git pull --rebase` option.
-- For reading the commit logs, show diffs with `git log -p`. Abbreviated stats (lines modified etc.) can be shown with `--stat` and the ASCII graph with `--graph`. Can also limit to specific files with `git log -- path/to/file`.
+- For reading the commit logs, show diffs with `git log -p`. Abbreviated stats (lines modified etc.) can be shown with `--stat` and the ASCII graph with `--graph`. Can also limit to specific files with `git log -- path/to/file`. You can also focus on specific string of interest with `git log -S` e.g. `git log -S some_func -p`, it will look for diffs that adds or removes that string.
 - For reading diffs with more context, use the `-U` flag, add the number of lines you want around the diffs with an integer after the flag, for example, `git diff -U8` for 8 lines of context instead of the default 3.
 - For seeing what git files you currently have tracked you can use `git ls-files .`.
+- Use `git branch --column` for a neater output of branches organized into columns instead one long list if there are many branches being juggled.
+
+Other things I learned of note, but I use less frequently:
+
+- To see the authorship of lines within a file, use `git blame`. The flags `git blame -w -C` ignores whitespace + detects moved lines in same commit. It's actually recommended to do `git blame -w -C -C -C` to ignore other unnecessary stuff like who created the file (so it's more clear who actually is responsible for code). You can use the `-L` flag to narrow down the output to specific line numbers of interest, e.g. `git blame -L 59,100` for line numbers 59-100. You can also do something similar with `git log -L 59,100:path/to/file` to show the evolution of the line range through commits.
+- A safe force push `git push --force-with-lease` is always recommended over `--force` when amending commits
+- Running `git maintenance start` once in any repo highly recommended! Will speed things up by allowing git to perform maintenance tasks in the background.
 
 ---
 
@@ -278,3 +288,4 @@ Here are some useful resources I consulted (and I still often go back to) on my 
 - [Interactive Git Tutorial](https://learngitbranching.js.org/)
 - [Pro Git book](https://git-scm.com/book/en/v2)
 - [Learn Git Rebase](https://www.youtube.com/watch?v=f1wnYdLEpgI&ab_channel=TheModernCoder)
+- [Scott Chacon at FOSDEM](https://www.youtube.com/watch?v=aolI_Rz0ZqY&ab_channel=GitButler)
