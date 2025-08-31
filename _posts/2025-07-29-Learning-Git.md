@@ -233,13 +233,13 @@ If you have completed the rebase but want to go back, you can always undo the re
 
 **Some important caveats:** if a rebase is so much cleaner, shouldn't we always do a `git rebase` then? That might not always be the case! While it is safe to rebase commits local to your computer not yet shared with other developers, it can quickly become a nightmare if you rebase commits you have already pushed to the server that **other people have started to base their work on**. This is because when you rebase you are essentially abandoning those original commits. (More on how to deal with this situation can be found in the Pro Git book). The best practice here is to **rebase local changes before pushing and never rebasing commits already pushed**.
 
---
+---
 
 ## Squashing
 
 Another good way to make your `git` history cleaner is to squash your commits, i.e. combine multiple commits into one commit. You can squash commits inside an interactive rebase. You can also squash commits in a merge using `git merge --squash` flag. For example `git merge --squash feature` will take the changes from the feature branch and stage them as one giant change set, **without creating a merge commit** - so highly recommend using this. Doing this eliminates the long history of the `feature` branch, and simply adds a new squashed commit onto your `main` branch. If you squash merge `feature` with a history `A (main) -> B -> C (feature)` onto the main branch at `A` you get `A -> D (main)` on main where `D` is a commit combining both `B` and `C`.
 
---
+---
 
 ## Useful Commands
 
@@ -319,7 +319,7 @@ A powerful notation within `git` is range notation, and can be used in most `git
 
 You can use it with diffs to see what changes say a pull request has introduced, e.g. `git diff main..feature`.
 
-The triple dot syntax `A...B` focuses on commits reachable from `B` or `A` but not both. So you can look at commits of both since divergence
+The triple dot syntax `A...B` focuses on commits reachable from `B` or `A` but not both. So you can look at commits of both since their divergence.
 
 ---
 
